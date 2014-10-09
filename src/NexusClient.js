@@ -14,8 +14,8 @@ var request = require('request'),
  */
 NexusClient = function (options) {
     this.options = {
-        server: 'http://nexus.chromabits.com',
-        apiKey: 'ORfjidX0TvN6UnJum3RmAgzJdDXz2qEEEkyXTcyTNPKYV2OEsEQ4atQ5KWocSnGS'
+        server: null,
+        apiKey: null
     };
 };
 

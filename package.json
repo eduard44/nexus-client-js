@@ -1,6 +1,6 @@
 {
   "name": "nexus-client-js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Javascript client for the Nexus Configuration Server",
   "main": "NexusClient.js",
   "scripts": {

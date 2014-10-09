@@ -17,6 +17,14 @@ NexusClient = function (options) {
         server: null,
         apiKey: null
     };
+
+    if (options.hasOwnProperty('server')) {
+        this.options.server = options.server;
+    }
+
+    if (options.hasOwnProperty('apiKey')) {
+        this.options.apiKey = options.apiKey;
+    }
 };
 
 /**

@@ -42,7 +42,7 @@ NexusClient.prototype.fetch = function(callback) {
 
 /**
  * Utility function for building a nexus client
- * 
+ *
  * @param server
  * @param apiKey
  * @returns {NexusClient}

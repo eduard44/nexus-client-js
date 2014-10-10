@@ -1,6 +1,6 @@
 # Nexus Client (JS)
 
-Javascript client for the Nexus Configuration Server
+Javascript client for the [Nexus Configuration Server](https://github.com/eduard44/nexus)
 
 ## Setup
 
@@ -61,15 +61,15 @@ clientInstance.fetch(function (collection) {
 ## API
 
 ### NexusClient
-- fetch(callback)
-- build(server, apiKey)
-- buildFromEnv()
-- isEnvPresent()
+- **fetch(callback)**: Fetches all the configuration files from the server and calls the callback with a ConfigurationCollection object
+- **build(server, apiKey)**: Creates a new NexusClient from that uses the specified server and key (NexusClient)
+- **buildFromEnv()**: Creates a new NexusClient from evironment variables, NEXUS\_SERVER and NEXUS\_APIKEY (NexusClient)
+- **isEnvPresent()**: Returns a boolean indicating if NEXUS\_SERVER and NEXUS\_APIKEY are available (Boolean)
 
 ### ConfigurationCollection
-- getKeyAsString(key)
-- getKeyAsJson(key)
-- hasKey(key)
-- getApplicationName()
-- getApplicationDescription()
-- getAllKeys()
+- **getKeyAsString(key)**: Get a configuration file as a raw string (String)
+- **getKeyAsJson(key)**: Get a configuration file as a JSON object (Object)
+- **hasKey(key)**: Check whether or not a file is defined (Boolean)
+- **getApplicationName()**: Gets the application name defined in Nexus (String)
+- **getApplicationDescription()**: Gets the description of the application defined in Nexus (String)
+- **getAllKeys()**: Gets all configuration files as strings (Object)

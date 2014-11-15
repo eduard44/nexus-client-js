@@ -1,6 +1,6 @@
 {
   "name": "nexus-client-js",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Javascript client for the Nexus Configuration Server",
   "main": "NexusClient.js",
   "scripts": {
@@ -9,6 +9,7 @@
   "author": "Eduardo Trujillo <ed@chromabits.com>",
   "license": "ISC",
   "dependencies": {
+    "ensure.js": "^0.5.3",
     "request": "^2.45.0"
   }
 }

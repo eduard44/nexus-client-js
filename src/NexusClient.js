@@ -2,6 +2,9 @@
 
 var request = require('request'),
 
+    ensure = require('ensure.js'),
+    os = require("os"),
+
     ConfigurationCollection = require('./ConfigurationCollection'),
 
     NexusClient;
@@ -44,7 +47,80 @@ NexusClient.prototype.fetch = function(callback) {
 
         var collection = new ConfigurationCollection(response.body);
 
-        callback(collection);
+        if (callback) {
+            callback(collection);
+        }
+    });
+};
+
+/**
+ * Push logs to the server
+ *
+ * @param filename {String}
+ * @param lines {String|String[]}
+ * @param callback {Function}
+ */
+NexusClient.prototype.log = function (filename, lines, callback) {
+    // Convert string into array
+    if (ensure(lines, String, true)) {
+        lines = lines.split("\n");
+    }
+
+    request.post(this.options.server + '/v1/logs', {
+        headers: {
+            'Authorization': 'Bearer ' + this.options.apiKey
+        },
+        json: true,
+        body: {
+            instanceName: os.hostname(),
+            filename: filename,
+            lines: lines
+        }
+    }, function (err, response) {
+        if (err) {
+            throw err;
+        }
+
+        if (response.body.status !== 'success') {
+            throw new Error('Invalid server response: ' + JSON.stringify(response.body));
+        }
+
+        if (callback) {
+            callback();
+        }
+    });
+};
+
+/**
+ * Ping the server (with optional message)
+ *
+ * @param [message] {String}
+ * @param callback {Function}
+ */
+NexusClient.prototype.ping = function (message, callback) {
+    message = ensure.one(message, 'Ping');
+
+    request.post(this.options.server + '/v1/ping', {
+        headers: {
+            'Authorization': 'Bearer ' + this.options.apiKey
+        },
+        json: true,
+        body: {
+            name: os.hostname(),
+            message: message
+        }
+    }, function (err, response) {
+        if (err) {
+            throw err;
+        }
+
+        if (response.body.status !== 'success') {
+            throw new Error('Invalid server response: ' + JSON.stringify(response.body));
+        }
+
+        if (callback) {
+            callback();
+        }
     });
 };
 

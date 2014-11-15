@@ -62,6 +62,8 @@ clientInstance.fetch(function (collection) {
 
 ### NexusClient
 - **fetch(callback)**: Fetches all the configuration files from the server and calls the callback with a ConfigurationCollection object
+- **ping(message, callback)**: Send a ping message to the server
+- **log(filename, files, callback)**: Push log lines to the server
 - **build(server, apiKey)**: Creates a new NexusClient from that uses the specified server and key (NexusClient)
 - **buildFromEnv()**: Creates a new NexusClient from evironment variables, NEXUS\_SERVER and NEXUS\_APIKEY (NexusClient)
 - **isEnvPresent()**: Returns a boolean indicating if NEXUS\_SERVER and NEXUS\_APIKEY are available (Boolean)

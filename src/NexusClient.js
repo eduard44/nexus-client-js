@@ -21,6 +21,13 @@ NexusClient = function (options) {
         apiKey: null
     };
 
+    // Fetch hostname
+    this.hostname = 'UNKNOWN';
+
+    if (os && os.hostname) {
+        this.hostname = os.hostname();
+    }
+
     if (options.hasOwnProperty('server')) {
         this.options.server = options.server;
     }
@@ -61,6 +68,8 @@ NexusClient.prototype.fetch = function(callback) {
  * @param callback {Function}
  */
 NexusClient.prototype.log = function (filename, lines, callback) {
+    var hostname = this.hostname;
+
     // Convert string into array
     if (ensure(lines, String, true)) {
         lines = lines.split("\n");
@@ -72,7 +81,7 @@ NexusClient.prototype.log = function (filename, lines, callback) {
         },
         json: true,
         body: {
-            instanceName: os.hostname(),
+            instanceName: hostname,
             filename: filename,
             lines: lines
         }
@@ -98,6 +107,8 @@ NexusClient.prototype.log = function (filename, lines, callback) {
  * @param callback {Function}
  */
 NexusClient.prototype.ping = function (message, callback) {
+    var hostname = this.hostname;
+
     message = ensure.one(message, 'Ping');
 
     request.post(this.options.server + '/v1/ping', {
@@ -106,7 +117,7 @@ NexusClient.prototype.ping = function (message, callback) {
         },
         json: true,
         body: {
-            name: os.hostname(),
+            name: hostname,
             message: message
         }
     }, function (err, response) {
@@ -122,6 +133,17 @@ NexusClient.prototype.ping = function (message, callback) {
             callback();
         }
     });
+};
+
+/**
+ * Override the hostname sent to the server
+ *
+ * @param newHostname
+ */
+NexusClient.prototype.overrideHostname = function (newHostname) {
+    ensure(newHostname, String);
+
+    this.hostname = newHostname;
 };
 
 /**
